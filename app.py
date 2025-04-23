@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 
-ServerWebRasberry = Flask(__name__)
+app = Flask(__name__)
 
 commande_en_cours = {"action": "rien"}
 
