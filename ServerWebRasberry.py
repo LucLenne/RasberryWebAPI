@@ -21,5 +21,5 @@ def set_commande():
 @app.route("/etat", methods=["POST"])
 def recevoir_etat():
     data = request.get_json()
-    print("État reçu du Pico :", data)
-    return jsonify({"status": "reçu"})
+    print("Etat recu du Pico :", data)
+    return jsonify({"status": "recu"})
