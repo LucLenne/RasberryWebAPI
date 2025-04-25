@@ -20,7 +20,7 @@ def home():
     return "API Pico OK"
 
 @app.route("/command", methods=["GET"])
-def get_commande():
+def get_command():
     cur.execute("SELECT valeurs FROM commandes LIMIT 1;")
     result = cur.fetchone()
     if result:
@@ -29,8 +29,7 @@ def get_commande():
         return jsonify(["null", "null", "null", "null", "null", "null", "null"])
 
 @app.route("/command", methods=["POST"])
-def set_commande():
-    global command
+def set_command():
     command = request.get_json()
 
     cur.execute("DELETE FROM commandes;")  # On vide la table avant d'insérer
@@ -40,7 +39,7 @@ def set_commande():
     return jsonify({"status": "ok", "nouvelle_action": command})
 
 @app.route("/etat", methods=["POST"])
-def recevoir_etat():
+def get_state():
     data = request.get_json()
     print("Etat recu du Pico :", data)
     return jsonify({"status": "recu"})
