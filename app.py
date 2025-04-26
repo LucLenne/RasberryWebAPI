@@ -28,12 +28,12 @@ def set_command():
     conn.commit()
 
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS commandes (
-        id SERIAL PRIMARY KEY,
-        valeurs TEXT[]
-    );
-""")
-conn.commit()
+        CREATE TABLE IF NOT EXISTS commandes (
+            id SERIAL PRIMARY KEY,
+            valeurs TEXT[]
+        );
+    """)
+    conn.commit()
 
     cur.execute("DELETE FROM commandes;")  # On vide la table avant d'insérer
     cur.execute("INSERT INTO commandes (valeurs) VALUES (%s);", (command,))
