@@ -7,6 +7,9 @@ app = Flask(__name__)
 conn = psycopg2.connect(os.environ['DataBase_URL'], sslmode='require')
 cur = conn.cursor()
 
+cur.execute("DELETE FROM commandes;")
+conn.commit()
+
 cur.execute("""
     CREATE TABLE IF NOT EXISTS commandes (
         id SERIAL PRIMARY KEY,
@@ -30,17 +33,6 @@ def get_command():
 @app.route("/command", methods=["POST"])
 def set_command():
     command = request.get_json()
-
-    cur.execute("DELETE FROM commandes;")
-    conn.commit()
-
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS commandes (
-            id SERIAL PRIMARY KEY,
-            valeurs TEXT[]
-        );
-    """)
-    conn.commit()
 
     cur.execute("DELETE FROM commandes;")  # On vide la table avant d'insérer
     cur.execute("INSERT INTO commandes (valeurs) VALUES (%s);", (command,))
