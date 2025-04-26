@@ -7,6 +7,13 @@ app = Flask(__name__)
 conn = psycopg2.connect(os.environ['DataBase_URL'], sslmode='require')
 cur = conn.cursor()
 
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS commandes (
+        id SERIAL PRIMARY KEY,
+        valeurs TEXT[]
+    );
+""")
+
 @app.route("/")
 def home():
     return "API Pico OK"
